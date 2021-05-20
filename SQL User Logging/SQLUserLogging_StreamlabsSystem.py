@@ -57,6 +57,16 @@ def Execute(data):
         sub = 'False'
         subtime = 0
 
+    if 'founder/' in Parsed[0]:
+        sub = 'True'
+        subtime = Parsed[0][-2:]
+        founder = 'True'
+    else:
+        sub = 'False'
+        subtime = 0
+        founder = 'False'
+
+
     if 'vip/1' in Parsed[1]:
         vip = 'True'
     else:
@@ -101,6 +111,7 @@ def Execute(data):
     f.write("VP: " + vipStatus)
     f.write("Bt: " + bit)
     f.write("BN: " + bitnumbers)
+    f.write('fN: ' + founder)
     f.close()
       
     log("Leaving Execute")
