@@ -67,19 +67,13 @@ def Execute(data):
         if Parsed[1][-2:].isnumeric():
             if Parsed[1][-2] =='0':
                 bitnumber = Parsed[1][-4:]
-                send_message(Parsed[1][-4:]) 
             else:  
                 bitnumber = Parsed[1][-2:]
-                send_message(Parsed[1][-2:])
         else:
             bitnumber = Parsed[1][-4:]
-            send_message(Parsed[1][-4:])
     else:             
         bits = 'False'
         bitnumber = 0
-        send_message(bitnumber)
-    
-
 
     log("Entering Execute")
 
@@ -105,7 +99,7 @@ def Execute(data):
     f.write("IS: " + Sub)
     f.write("SL: " + Subtime)
     f.write("VP: " + vipStatus)
-    f.write("BT: " + bit)
+    f.write("Bt: " + bit)
     f.write("BN: " + bitnumbers)
     f.close()
       
