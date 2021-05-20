@@ -3,11 +3,13 @@ import os
 import sys
 import codecs
 
+
+
 ScriptName = "SQLUserLogging"
-Website = "https://en.wikipedia.org/wiki/The_X-Files"
+Website = ""
 Description = "This listens to all messages sent into chat and drops them into a file."
 Creator = "Davasorus"
-Version = "2.0.0"
+Version = "1.0.0"
 
 
 settings = {}
@@ -34,19 +36,77 @@ def Execute(data):
         return
     
     
+    ##Sub = Parent.HasPermission(data.User,"Subscriber"," ")
+
+    Parsed = data.RawData.split(';')
+
+    ##send_message(str(Parsed))
+    ##send_message('raw parse ' + str(Parsed[1][-2:]))
+    ##send_message('raw parse ' + str(Parsed[1][-4:]))
+    ##send_message(str(Parsed[1]))
+    
+    if 'mod=1' in Parsed: 
+        mod = 'True'
+    else: 
+        mod = "False"
+
+    if 'subscriber=1' in Parsed: 
+        sub = 'True'
+        subtime = Parsed[0][-2:]
+    else:
+        sub = 'False'
+        subtime = 0
+
+    if 'vip/1' in Parsed[1]:
+        vip = 'True'
+    else:
+        vip = 'False'
+
+    if 'bits/' in Parsed[1]:
+        bits = 'True'
+        if Parsed[1][-2:].isnumeric():
+            if Parsed[1][-2] =='0':
+                bitnumber = Parsed[1][-4:]
+                send_message(Parsed[1][-4:]) 
+            else:  
+                bitnumber = Parsed[1][-2:]
+                send_message(Parsed[1][-2:])
+        else:
+            bitnumber = Parsed[1][-4:]
+            send_message(Parsed[1][-4:])
+    else:             
+        bits = 'False'
+        bitnumber = 0
+        send_message(bitnumber)
+    
+
 
     log("Entering Execute")
 
-    
     Name = data.UserName
-    Message1 = data.Message +'\n'
-    Message2 = Name + '\n'
+
+    Message = data.Message +'\n'
+    Name = Name + '\n'
+    Sub = sub + '\n'
+    Mod = mod + '\n'
+    Subtime = str(subtime) + '\n'
+    vipStatus = vip + '\n'
+    bit = bits + '\n'
+    bitnumbers = str(bitnumber) + '\n'
+
+
     
     FName = str(number()) + ".txt"
     
     f = open(Location + FName , "w")
-    f.write(Message1)
-    f.write(Message2)
+    f.write("UM: " + Message)
+    f.write("UN: " + Name)
+    f.write("IM: " + Mod)
+    f.write("IS: " + Sub)
+    f.write("SL: " + Subtime)
+    f.write("VP: " + vipStatus)
+    f.write("BT: " + bit)
+    f.write("BN: " + bitnumbers)
     f.close()
       
     log("Leaving Execute")
@@ -72,3 +132,11 @@ def number():
     global num
     num +=1
     return num
+
+
+def search_elements(searcher, searchie):
+    retrieved_elements = list(filter(lambda x: searcher in x, searchie))
+    return
+
+
+
