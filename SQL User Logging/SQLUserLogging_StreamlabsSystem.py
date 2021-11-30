@@ -77,10 +77,15 @@ def Execute(data):
         if Parsed[1][-2:].isnumeric():
             if Parsed[1][-2] =='0':
                 bitnumber = Parsed[1][-4:]
-            else:  
+            elif:  
                 bitnumber = Parsed[1][-2:]
-        else:
+            else:
+                bitnumber = Parsed[1][-6:]
+        elif Parsed[1][-4:].isnumeric():
             bitnumber = Parsed[1][-4:]
+        else:
+            bitnumber = Parsed[1][-6:]
+            
     else:             
         bits = 'False'
         bitnumber = 0
