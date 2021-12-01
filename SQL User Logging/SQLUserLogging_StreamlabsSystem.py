@@ -41,8 +41,12 @@ def Execute(data):
     Parsed = data.RawData.split(';')
 
     ##send_message(str(Parsed))
+    ##send_message('raw parse ' + str(Parsed[1][-1:]))
     ##send_message('raw parse ' + str(Parsed[1][-2:]))
+    ##send_message('raw parse ' + str(Parsed[1][-3:]))
     ##send_message('raw parse ' + str(Parsed[1][-4:]))
+    ##send_message('raw parse ' + str(Parsed[1][-5:]))
+    ##send_message('raw parse ' + str(Parsed[1][-6:]))
     ##send_message(str(Parsed[1]))
     
     if 'mod=1' in Parsed: 
@@ -50,7 +54,7 @@ def Execute(data):
     else: 
         mod = "False"
 
-    if 'subscriber=1' in Parsed: 
+    if 'Subscriber=1' in Parsed: 
         sub = 'True'
         subtime = Parsed[0][-2:]
     else:
@@ -74,16 +78,17 @@ def Execute(data):
 
     if 'bits/' in Parsed[1]:
         bits = 'True'
-        if Parsed[1][-2:].isnumeric():
-            if Parsed[1][-2] =='0':
-                bitnumber = Parsed[1][-4:]
-            elif Parsed[1][-4] =='0000':  
-                bitnumber = Parsed[1][-2:]
-            else:
-                bitnumber = Parsed[1][-6:]
+        if Parsed[1][-1:].isnumeric():
+            bitnumber = Parsed[1][-1:]
+        elif Parsed[1][-2:].isnumeric():
+            bitnumber = Parsed[1][-2:]
+        elif Parsed[1][-3:].isnumeric():
+            bitnumber = Parsed[1][-3:]
         elif Parsed[1][-4:].isnumeric():
             bitnumber = Parsed[1][-4:]
-        else:
+        elif Parsed[1][-5:].isnumeric():
+            bitnumber = Parsed[1][-5:]
+        elif Parsed[1][-6:].isnumeric():
             bitnumber = Parsed[1][-6:]
             
     else:             
